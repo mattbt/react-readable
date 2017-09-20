@@ -1,0 +1,126 @@
+.lightgray {
+  color: lightgray
+}
+
+.app {
+  padding: 5px;
+}
+.app-header {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.block-left {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0 10px 0 10px;
+}
+.block-right {
+  grid-column: 2 / 7;
+  grid-row: 1 ;
+  padding: 0 10px 0 10px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.page-one-column {
+  grid-column: 2 / 7;
+  grid-row: 1 ;
+  padding: 0 30px 0 30px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+}
+
+.post-detail-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+.post-detail-right {
+  grid-column: 2 / 15;
+  grid-row: 1 ;
+}
+.vote-score-large {
+  text-align: center;
+  font-size: 25px;
+  line-height: 1;
+}
+.vote-score {
+  text-align: center;
+  font-size: 16px;
+  line-height: 0.7;
+}
+.clickable-icon {
+  cursor: pointer;
+}
+li.lightgreen {
+  background-color: #eee;
+}
+.category-title {
+  grid-column: 1/15;
+  grid-row: 1;
+}
+.category-post-list {
+  grid-column: 1/15;
+  grid-row: 3;
+}
+.category-nav {
+  grid-column: 1/15;
+  grid-row: 2;
+}
+
+.modalcustom {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  right: 'auto';
+  bottom: 'auto';
+  marginRight: -50%;
+  transform: translate(-50%, -50%);
+  height: 600px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
+  width: 700px;
+}
+.overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
