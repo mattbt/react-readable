@@ -2,7 +2,7 @@ Readable: A basic React + Redux content and comment web app
 ===
 
 React + Redux front-end code to manage, categorize and vote posts and comments.   
-Back-end API and data storage is provided by Udacity.   
+Back-end API Server is provided by Udacity.   
 This project is part of Udacity React Nanodegree Program.   
 
 ### Setup
