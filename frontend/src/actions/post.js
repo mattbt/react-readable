@@ -2,13 +2,15 @@ import { config } from '../utils/config'
 import uuidv1 from 'uuid/v1'
 import { resetCommentList, fetchComments } from './comment'
 
-export const SET_POSTS = 'SET_POSTS'
-export const SET_SORT_BY = 'SET_SORT_BY'
-export const SET_CURRENT_POST = 'SET_CURRENT_POST'
-export const UPDATE_POST_IN_LIST = 'UPDATE_POST_IN_LIST'
-export const UPDATE_MODAL_POST = 'UPDATE_MODAL_POST'
-export const OPEN_POST_MODAL = 'OPEN_POST_MODAL'
-export const CLOSE_POST_MODAL = 'CLOSE_POST_MODAL'
+import {
+  SET_POSTS,
+  SET_CURRENT_POST,
+  SET_SORT_BY,
+  UPDATE_POST_IN_LIST,
+  OPEN_POST_MODAL,
+  CLOSE_POST_MODAL,
+  UPDATE_MODAL_POST
+} from './types'
 
 function setCurrentPost({ post }) {
   return {
@@ -64,7 +66,6 @@ export function fetchPosts(category) {
     const requestPath = category
       ? `${server}/${category}/posts`
       : `${server}/posts`
-    console.log(requestPath)
     return fetch(requestPath, { headers, method: 'GET'})
         .then(
           response => response.json(),
@@ -91,7 +92,6 @@ export function fetchPost(id) {
           response => response.json(),
           error => console.log('An error occured.', error))
       .then(data => {
-        console.log(data)
         if ('error' in data || Object.keys(data).length === 0) {
           dispatch(setCurrentPost({'post': null}))
         } else {
@@ -128,7 +128,6 @@ export function closePostModal(){
 export function addPost(post, categoryPath){
   return function(dispatch){
     const { title, author, category } = post
-    console.log({categoryPath})
     const { server, headers } = config
     const requestPath = `${server}/posts`
     return fetch(requestPath, {

@@ -6,7 +6,7 @@ import {
   OPEN_COMMENT_MODAL,
   CLOSE_COMMENT_MODAL,
   UPDATE_MODAL_COMMENT
-} from '../actions/comment'
+} from '../actions/types'
 
 // Comment reducer
 const initialCommentState = {

@@ -21,7 +21,7 @@ class CategoryList extends Component {
     return (
       <div className="category-list">
         <h3>Category List</h3>
-        <Nav stacked bsStyle="pills" activeKey={'future'}>
+        <Nav stacked bsStyle="pills" className="category-list-ul">
           {categories.map((cat) => (
             <CategoryItem cat={cat} key={cat.name}/>
           ))}

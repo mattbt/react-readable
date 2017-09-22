@@ -6,7 +6,7 @@ import {
   OPEN_POST_MODAL,
   CLOSE_POST_MODAL,
   UPDATE_MODAL_POST
-} from '../actions/post'
+} from '../actions/types'
 
 
 // Post reducer
@@ -48,7 +48,6 @@ export default function post(state = initialPostState, action) {
     case UPDATE_POST_IN_LIST:
       const { updatedPost } = action
       if (`${updatedPost.id}` in state.list){
-        console.log('post in current list')
         return {
           ...state,
           list: {

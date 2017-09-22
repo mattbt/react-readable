@@ -1,14 +1,16 @@
 import { config } from '../utils/config'
 import uuidv1 from 'uuid/v1'
 
+import {
+  RESET_COMMENT_LIST,
+  APPEND_COMMENTS,
+  SET_CURRENT_COMMENTS,
+  UPDATE_COMMENT_IN_LIST,
+  OPEN_COMMENT_MODAL,
+  CLOSE_COMMENT_MODAL,
+  UPDATE_MODAL_COMMENT
+} from './types'
 
-export const RESET_COMMENT_LIST = 'RESET_COMMENT_LIST'
-export const APPEND_COMMENTS = 'APPEND_COMMENTS'
-export const SET_CURRENT_COMMENTS = 'SET_CURRENT_COMMENTS'
-export const UPDATE_COMMENT_IN_LIST = 'UPDATE_COMMENT_IN_LIST'
-export const OPEN_COMMENT_MODAL = 'OPEN_COMMENT_MODAL'
-export const CLOSE_COMMENT_MODAL = 'CLOSE_COMMENT_MODAL'
-export const UPDATE_MODAL_COMMENT = 'UPDATE_MODAL_COMMENT'
 
 
 function appendComments(comments) {
@@ -95,7 +97,6 @@ export function editComment(comment){
           error => console.log('An error occured.', error)
         )
         .then(data => {
-          console.log(data)
           dispatch(fetchComments(parentId, true))
           dispatch(closeCommentModal())
         })
@@ -116,7 +117,6 @@ export function deleteComment(comment){
           error => console.log('An error occured.', error)
         )
         .then(data => {
-          console.log(data)
           dispatch(fetchComments(parentId, true))
           dispatch(closeCommentModal())
         })

@@ -10,28 +10,19 @@ class HomePage extends Component {
 
   componentDidMount(){
     // from post & category reducer
-    const { fetchPosts, setCurrentCategory } = this.props
-
+    const { fetchPosts, setCurrentCategory, categories } = this.props
     setCurrentCategory({'currentCategory': null})
     fetchPosts(null)
   }
 
   render() {
-    return (
-        <div className="wrapper">
-          <div className="block-left">
-            <CategoryList />
-          </div>
-          <div className="block-right">
-            <PostList />
-          </div>
-        </div>
-    )
+    return (<PostList />)
   }
 }
 
-function mapStateToProps ({}) {
+function mapStateToProps ({category}) {
   return {
+
   }
 }
 

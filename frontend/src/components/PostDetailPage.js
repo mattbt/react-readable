@@ -6,6 +6,7 @@ import DeleteIcon from 'react-icons/lib/md/delete'
 
 import PostModal from './PostModal'
 import CommentList from './CommentList'
+import Page404 from './Page404'
 import VoteScore from './VoteScore'
 import { fetchPost, openPostModal } from '../actions/post'
 
@@ -24,7 +25,7 @@ class PostDetailPage extends Component {
     const { currentPost, openPostModal } = this.props
 
     return (
-      <div className="wrapper">
+      <div>
         {currentPost
           ? <div className="page-one-column">
               <div className="vote-score-large">
@@ -37,17 +38,11 @@ class PostDetailPage extends Component {
               <div className="post-detail-right">
                 <h3> {currentPost.title}<br /><small>Category: {currentPost.category}</small></h3>
                 <p>{currentPost.body}</p>
-                <Link to="/">back to home page</Link>
                 <hr />
                 <CommentList parentId={currentPost.id} />
               </div>
             </div>
-          : <div className="page-one-column">
-              <div className="post-detail-right">
-                <h3>Post not found</h3>
-                <Link to="/">back to home page</Link>
-              </div>
-            </div>
+          : <Page404 />
         }
       </div>
     )

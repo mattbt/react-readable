@@ -1,7 +1,7 @@
 import {
   SET_CATEGORIES,
   SET_CURRENT_CATEGORY
-} from '../actions/category'
+} from '../actions/types'
 
 const initialCategoryState = {
    list: [],

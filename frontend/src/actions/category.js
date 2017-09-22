@@ -1,6 +1,5 @@
 import { config } from '../utils/config'
-export const SET_CATEGORIES = 'SET_CATEGORIES'
-export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY'
+import { SET_CATEGORIES, SET_CURRENT_CATEGORY } from './types'
 
 function setCategories({ list }) {
   return {
@@ -8,12 +7,36 @@ function setCategories({ list }) {
     list
   }
 }
-export function setCurrentCategory({ currentCategory }) {
+function setCategory({ currentCategory }){
   return {
     type: SET_CURRENT_CATEGORY,
     currentCategory
   }
 }
+export function setCurrentCategory({ currentCategory }) {
+  return function (dispatch) {
+    // no checks if resetting
+    if(currentCategory === null){
+      return dispatch(setCategory({ currentCategory }))
+    }
+
+    // check if requested category exists
+    const { server, headers } = config
+    const requestPath = `${server}/categories`
+    return fetch(requestPath, { headers, method: 'GET'})
+        .then(
+            response => response.json(),
+            error => console.log('An error occured.', error))
+        .then(data => {
+          if(data.categories.filter((c) => (c.path === currentCategory)).length == 0){
+            dispatch(setCategory({currentCategory: null}))
+          } else {
+            dispatch(setCategory({currentCategory}))
+          }
+        })
+    }
+  }
+
 export function fetchCategories() {
   return function (dispatch) {
     const { server, headers } = config
