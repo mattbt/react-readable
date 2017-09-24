@@ -18,7 +18,7 @@ class CommentList extends Component {
 
     return (
       <div className="post-list">
-        <h4>Comments</h4>
+        <h4>{currentComments.length} Comments</h4>
         <div className="text-right clickable-icon"
           onClick={() => openCommentModal({ option: 'add', comment: { parentId } })}>
           <AddIcon size={20}/> comment</div>

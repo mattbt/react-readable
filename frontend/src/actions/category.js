@@ -28,7 +28,7 @@ export function setCurrentCategory({ currentCategory }) {
             response => response.json(),
             error => console.log('An error occured.', error))
         .then(data => {
-          if(data.categories.filter((c) => (c.path === currentCategory)).length == 0){
+          if(data.categories.filter((c) => (c.path === currentCategory)).length === 0){
             dispatch(setCategory({currentCategory: null}))
           } else {
             dispatch(setCategory({currentCategory}))

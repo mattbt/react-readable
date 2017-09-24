@@ -5,14 +5,21 @@ import AddIcon from 'react-icons/lib/md/add'
 
 import PostListItem from './PostListItem'
 import PostModal from './PostModal'
-import { openPostModal, setSortBy } from '../actions/post'
+import { openPostModal, setSortBy, fetchPosts } from '../actions/post'
 import { sortByScore, sortByTimestamp } from '../utils/sort'
 
 class PostList extends Component {
-
+  componentDidMount(){
+    const { postlist, fetchPosts } = this.props
+    // if postlist not initialized in store, do it here
+    {postlist.length === 0
+      && fetchPosts()
+    }
+  }
   render() {
-    // from parent
-    const { category } = this.props
+    // from category reducer
+    const { currentCategory } = this.props
+
     // from post reducer
     const { postlist, openPostModal, setSortBy, sortBy } = this.props
 
@@ -27,7 +34,7 @@ class PostList extends Component {
             <option value="timestamp">timestamp</option>
           </select>
           <div className="text-right clickable-icon"
-            onClick={() => openPostModal({ option: 'add', post: { category } })}>
+            onClick={() => openPostModal({ option: 'add', post: { category: currentCategory || '' } })}>
             <AddIcon size={20}/> post
           </div>
         </div>
@@ -42,19 +49,23 @@ class PostList extends Component {
               </tbody>
             </Table>
         }
-        <PostModal categoryPath={category}/>
+        <PostModal categoryPath={currentCategory}/>
       </div>
     )
   }
 }
 
 function mapStateToProps ({category, post}) {
+
   return {
-    postlist: Object.keys(post.list).map((k) => post.list[k]).sort(
-      post.sortBy === "score"
-      ? sortByScore
-      : sortByTimestamp
-    ).reverse(),
+    currentCategory: category.current,
+    postlist: Object.keys(post.list).map((k) => post.list[k])
+      .filter((p) => (!category.current || p.category === category.current))
+      .sort(
+        post.sortBy === "score"
+        ? sortByScore
+        : sortByTimestamp
+      ).reverse(),
     sortBy: post.sortBy
   }
 }
@@ -62,7 +73,8 @@ function mapStateToProps ({category, post}) {
 function mapDispatchToProps (dispatch) {
   return {
     openPostModal: (data) => dispatch(openPostModal(data)),
-    setSortBy: (data) => dispatch(setSortBy(data))
+    setSortBy: (data) => dispatch(setSortBy(data)),
+    fetchPosts: (data) => dispatch(fetchPosts(data))
   }
 }
 

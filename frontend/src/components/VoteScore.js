@@ -10,7 +10,7 @@ class VoteScore extends Component {
 
   render() {
     // from parent
-    const { vote, id, type, size, current } = this.props
+    const { vote, id, type, size } = this.props
 
     // from post & comment reducer
     const { updatePostVote, updateCommentVote } = this.props
@@ -19,12 +19,12 @@ class VoteScore extends Component {
       <div>
         <AngleUp className="clickable-icon" size={size}
           onClick={() => type === "post"
-            ? updatePostVote(id, "upVote", current)
+            ? updatePostVote(id, "upVote")
             : updateCommentVote(id, "upVote")}/>
         <br />{vote}<br />
         <AngleDown className="clickable-icon" size={size}
           onClick={() => type === "post"
-            ? updatePostVote(id, "downVote", current)
+            ? updatePostVote(id, "downVote")
             : updateCommentVote(id, "downVote")}/>
       </div>
     )

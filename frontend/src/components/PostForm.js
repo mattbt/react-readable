@@ -19,7 +19,7 @@ class PostForm extends Component {
     const { option, post } = postModalState
 
     // from category reducer
-    const { categories, currentCategory } = this.props
+    const { categories } = this.props
 
     return (
       <div>
@@ -62,10 +62,10 @@ class PostForm extends Component {
           <Button
             bsStyle={option === 'add' ? 'success' : (option === "edit" ? 'warning' : 'danger')}
             onClick={() => (option === 'add'
-                  ? addPost(post, {currentCategory})
+                  ? addPost(post)
                   : (option === "edit"
-                    ? editPost(post, {currentCategory})
-                    : deletePost(post, {currentCategory}))
+                    ? editPost(post)
+                    : deletePost(post))
                   )}>
             {option === 'add' ? 'Add ' : (option === "edit" ? 'Edit ' : 'Delete ')}post
           </Button>
@@ -78,8 +78,7 @@ class PostForm extends Component {
 function mapStateToProps ({post, category}) {
   return {
     postModalState: post.postModalState,
-    categories: category.list,
-    currentCategory: category.current
+    categories: category.list
   }
 }
 

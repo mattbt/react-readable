@@ -3,6 +3,7 @@ import {
   SET_CURRENT_POST,
   SET_SORT_BY,
   UPDATE_POST_IN_LIST,
+  REMOVE_POST_FROM_LIST,
   OPEN_POST_MODAL,
   CLOSE_POST_MODAL,
   UPDATE_MODAL_POST
@@ -47,16 +48,20 @@ export default function post(state = initialPostState, action) {
       }
     case UPDATE_POST_IN_LIST:
       const { updatedPost } = action
-      if (`${updatedPost.id}` in state.list){
-        return {
-          ...state,
-          list: {
-            ...state.list,
-            [updatedPost.id]: updatedPost
-          }
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [updatedPost.id]: updatedPost
         }
       }
-      return state
+    case REMOVE_POST_FROM_LIST:
+      let clonelist = Object.assign({}, state.list);
+      delete clonelist[action.updatedPost.id];
+      return {
+        ...state,
+        list: clonelist
+      }
     case OPEN_POST_MODAL:
       const { option } = action
       return {

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import PostList from './PostList'
 import Page404 from './Page404'
-import { fetchPosts } from '../actions/post'
 import { setCurrentCategory } from '../actions/category'
 
 class CategoryPage extends Component {
@@ -18,10 +16,9 @@ class CategoryPage extends Component {
     // from url
     const { path } = this.props.match.params
     // from post & category reducer
-    const { fetchPosts, setCurrentCategory, categories } = this.props
+    const { setCurrentCategory, categories } = this.props
 
     setCurrentCategory({'currentCategory': path, categories})
-    fetchPosts(path)
   }
 
   render() {
@@ -33,7 +30,7 @@ class CategoryPage extends Component {
         {currentCategory
           ? <div>
               <h3 className="category-title">Category: {currentCategory}</h3>
-              <PostList category={currentCategory}/>
+              <PostList />
             </div>
           : <Page404 />
         }
@@ -52,8 +49,7 @@ function mapStateToProps ({category, post}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPosts: (data) => dispatch(fetchPosts(data)),
-    setCurrentCategory: (data) => dispatch(setCurrentCategory(data)),
+    setCurrentCategory: (data) => dispatch(setCurrentCategory(data))
   }
 }
 

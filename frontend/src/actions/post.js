@@ -7,6 +7,7 @@ import {
   SET_CURRENT_POST,
   SET_SORT_BY,
   UPDATE_POST_IN_LIST,
+  REMOVE_POST_FROM_LIST,
   OPEN_POST_MODAL,
   CLOSE_POST_MODAL,
   UPDATE_MODAL_POST
@@ -30,13 +31,19 @@ function updatePostInList({ updatedPost }) {
     updatedPost
   }
 }
+function removePostFromList({ updatedPost }) {
+  return {
+    type: REMOVE_POST_FROM_LIST,
+    updatedPost
+  }
+}
 function setPosts({ postlist }) {
   return {
     type: SET_POSTS,
     postlist
   }
 }
-export function updatePostVote(id, option, current) {
+export function updatePostVote(id, option) {
   return function (dispatch) {
     const { server, headers } = config
     const requestPath = `${server}/posts/${id}`
@@ -50,22 +57,22 @@ export function updatePostVote(id, option, current) {
           error => console.log('An error occured.', error)
         )
         .then(data => {
-          current
-          ? dispatch(setCurrentPost({'post': data}))
-          : dispatch(updatePostInList({'updatedPost': data}))
+          // update post in list
+          dispatch(updatePostInList({'updatedPost': data}))
+          // update currentPost
+          dispatch(setCurrentPost({'post': data}))
         })
   }
 }
-export function fetchPosts(category) {
+export function fetchPosts() {
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
   // thus making it able to dispatch actions itself.
 
   return function (dispatch) {
     const { server, headers } = config
-    const requestPath = category
-      ? `${server}/${category}/posts`
-      : `${server}/posts`
+    const requestPath = `${server}/posts`
+
     return fetch(requestPath, { headers, method: 'GET'})
         .then(
           response => response.json(),
@@ -123,9 +130,7 @@ export function closePostModal(){
   }
 }
 
-
-
-export function addPost(post, categoryPath){
+export function addPost(post){
   return function(dispatch){
     const { title, author, category } = post
     const { server, headers } = config
@@ -148,14 +153,14 @@ export function addPost(post, categoryPath){
         )
         .then(data => {
           // update post.list
-          dispatch(fetchPosts(categoryPath.currentCategory))
+          dispatch(updatePostInList({'updatedPost': data}))
           // close modal
           dispatch(closePostModal())
         })
   }
 }
 
-export function editPost(post, categoryPath){
+export function editPost(post){
   return function(dispatch){
     const { id, title, category } = post
     const { server, headers } = config
@@ -176,15 +181,15 @@ export function editPost(post, categoryPath){
         )
         .then(data => {
           // update post.list
-          dispatch(fetchPosts(categoryPath.currentCategory))
+          dispatch(updatePostInList({'updatedPost': data}))
           // update current post
-          dispatch(fetchPost(id))
+          dispatch(setCurrentPost({'post': data}))
           // close modal
           dispatch(closePostModal())
         })
   }
 }
-export function deletePost(post, categoryPath){
+export function deletePost(post){
   return function(dispatch){
     const { id } = post
 
@@ -200,9 +205,9 @@ export function deletePost(post, categoryPath){
         )
         .then(data => {
           // update post.list
-          dispatch(fetchPosts(categoryPath.currentCategory))
+          dispatch(removePostFromList({'updatedPost': data}))
           // update current post
-          dispatch(fetchPost(id))
+          dispatch(setCurrentPost({'post': null}))
           // close modal
           dispatch(closePostModal())
         })

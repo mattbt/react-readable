@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import EditIcon from 'react-icons/lib/md/edit'
 import DeleteIcon from 'react-icons/lib/md/delete'
@@ -30,13 +29,17 @@ class PostDetailPage extends Component {
           ? <div className="page-one-column">
               <div className="vote-score-large">
                 <VoteScore type="post" id={currentPost.id} vote={currentPost.voteScore}
-                className="post-detail-left" size={30} current={true}/>
+                className="post-detail-left" size={30} />
                 <EditIcon className="clickable-icon lightgray" size={21} onClick={() => openPostModal({ option: 'edit', post: currentPost })}/><br />
                 <DeleteIcon className="clickable-icon lightgray" size={21} onClick={() => openPostModal({ option: 'delete', post: currentPost })}/>
                 <PostModal categoryPath={currentPost.category}/>
               </div>
               <div className="post-detail-right">
-                <h3> {currentPost.title}<br /><small>Category: {currentPost.category}</small></h3>
+                <h3>
+                  {currentPost.title}<br />
+                  <small>by {currentPost.author} - </small>
+                  <small>category: {currentPost.category}</small>
+                </h3>
                 <p>{currentPost.body}</p>
                 <hr />
                 <CommentList parentId={currentPost.id} />

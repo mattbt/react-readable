@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import CategoryList from './CategoryList'
 import PostList from './PostList'
 import { setCurrentCategory } from '../actions/category'
 import { fetchPosts } from '../actions/post'
@@ -10,9 +9,9 @@ class HomePage extends Component {
 
   componentDidMount(){
     // from post & category reducer
-    const { fetchPosts, setCurrentCategory, categories } = this.props
+    const { fetchPosts, setCurrentCategory } = this.props
     setCurrentCategory({'currentCategory': null})
-    fetchPosts(null)
+    fetchPosts()
   }
 
   render() {
@@ -28,7 +27,7 @@ function mapStateToProps ({category}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPosts: (data) => dispatch(fetchPosts(data)),
+    fetchPosts: () => dispatch(fetchPosts()),
     setCurrentCategory: (data) => dispatch(setCurrentCategory(data))
   }
 }
